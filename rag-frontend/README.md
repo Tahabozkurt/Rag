@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mevzuat Asistanı — Frontend
 
-## Getting Started
+Kurumsal mevzuat ve bankacılık yönergeleri için RAG (Retrieval-Augmented Generation) tabanlı sohbet arayüzü. Next.js (App Router) ile geliştirildi, backend'deki FastAPI servisine bağlanır.
 
-First, run the development server:
+## Özellikler
+
+- Sohbet geçmişi ile soru-cevap arayüzü
+- Her cevapla birlikte kaynak/madde referansı gösterimi (dosya adı + sayfa numarası)
+- Sürükle-bırak PDF yükleme ve kaynak arşivi listesi
+- Sistem durumu göstergesi (vektör veritabanı hazır mı, hangi model aktif)
+- Açık/koyu tema
+
+## Kurulum
+
+```bash
+npm install
+```
+
+## Ortam değişkenleri
+
+Kök dizinde `.env.local` dosyası oluştur:
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+Bu, backend'in (bkz. `../rag-backend`) çalıştığı adresi gösterir. Backend farklı bir portta veya sunucuda çalışıyorsa buna göre güncelle.
+
+## Geliştirme sunucusunu çalıştır
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000) adresini aç. Backend'in de ayrı bir terminalde çalışıyor olması gerekir (bkz. `../rag-backend/README.md`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Proje yapısı
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  page.tsx            Ana sohbet sayfası
+  api-client.ts        Backend API çağrılarını yöneten merkezi katman
+  globals.css           Genel stiller ve tema değişkenleri
+components/
+  ChatArea.tsx          Mesaj listesi ve scroll yönetimi
+  ChatInput.tsx          Soru yazma alanı
+  ChatMessage.tsx        Tekil mesaj balonu
+  SourcesAccordion.tsx   Açılır kaynak/madde referans listesi
+  Sidebar.tsx             Sol panel (kaynak yönetimi, sistem durumu)
+  FileUpload.tsx          PDF sürükle-bırak yükleme
+  DocumentList.tsx        Yüklenmiş kaynakların listesi
+  StatusBadge.tsx         Sistem durumu göstergesi
+  ThemeToggle.tsx         Açık/koyu tema geçişi
+  TypingIndicator.tsx     Cevap üretilirken gösterilen animasyon
+lib/
+  types.ts               Paylaşılan TypeScript tipleri
+  storage.ts              Yerel depolama yardımcıları
+```
 
-## Learn More
+## Backend bağlantısı
 
-To learn more about Next.js, take a look at the following resources:
+Bu arayüz, `../rag-backend` altındaki FastAPI servisinin şu endpoint'lerini kullanır:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Method | Path | Amaç |
+|---|---|---|
+| GET | `/api/status` | Sistemin hazır olup olmadığını ve aktif modeli döner |
+| POST | `/api/chat` | Soruyu gönderir, cevap ve kaynakları alır |
+| POST | `/api/upload` | PDF yükler, vektör veritabanına ekler |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Detaylı API dokümantasyonu için backend çalışırken `http://localhost:8000/docs` adresine bakılabilir.
