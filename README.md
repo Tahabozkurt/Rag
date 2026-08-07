@@ -29,7 +29,7 @@ Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yaln
 
 ## 🎯 Ne İşe Yarıyor?
 
-Bankacılık, ödeme sistemleri ve operasyon ekipleri her gün onlarca sayfalık mevzuat metninde arama yapmak zorunda kalır. **Mevzuat Asistanı**, bu süreci bir sohbete indirger:
+Kurumlar ve ekipler her gün onlarca sayfalık mevzuat metninde arama yapmak zorunda kalır. Mevzuat Asistanı, bu süreci bir sohbete indirger:
 
 ```
 📄 PDF yükle  →  🧠 vektörize et  →  ❓ soru sor  →  ✅ madde referanslı cevap al
