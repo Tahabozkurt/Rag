@@ -1,0 +1,24 @@
+# ===== Ortak =====
+.DS_Store
+*.log
+.vscode/
+.idea/
+.env
+
+# ===== Backend (Python / FastAPI / Streamlit) =====
+rag-backend/venv/
+rag-backend/__pycache__/
+rag-backend/**/__pycache__/
+rag-backend/*.pyc
+rag-backend/.env
+rag-backend/mevzuat_kaynaklari/
+rag-backend/chroma_db/
+rag-backend/.agents/
+
+# ===== Frontend (Next.js) =====
+rag-frontend/node_modules/
+rag-frontend/.next/
+rag-frontend/.env.local
+rag-frontend/.env*
+rag-frontend/*.tsbuildinfo
+rag-frontend/next-env.d.ts
