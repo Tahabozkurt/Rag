@@ -4,7 +4,7 @@
 
 # 🏛️ Mevzuat Asistanı
 
-### *Bankacılık mevzuatını okuyun demeyin, sorun.*
+### *Binlerce sayfa. Bir soru. Bir cevap..*
 
 <img src="https://img.shields.io/badge/Microsoft-Staj%20Projesi-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
 
