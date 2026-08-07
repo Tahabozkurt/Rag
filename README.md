@@ -8,7 +8,7 @@
 
 <img src="https://img.shields.io/badge/Microsoft-Staj%20Projesi-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
 
-Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yalnızca o kaynaklara dayanarak**, madde ve sayfa referansı vererek cevap üreten kurumsal RAG asistanı. Microsoft bünyesindeki staj sürecimde, bankacılık ve ödeme hizmetleri mevzuatına hızlı erişim ihtiyacından yola çıkılarak geliştirildi.
+Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yalnızca o kaynaklara dayanarak**, madde ve sayfa referansı vererek cevap üreten kurumsal RAG asistanı. Microsoft bünyesindeki staj sürecimde, uzun mevzuat belgelerine hızlı erişim ihtiyacından yola çıkılarak geliştirildi.
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
