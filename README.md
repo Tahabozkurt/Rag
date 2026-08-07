@@ -6,7 +6,9 @@
 
 ### *Bankacılık mevzuatını okuyun demeyin, sorun.*
 
-Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yalnızca o kaynaklara dayanarak**, madde ve sayfa referansı vererek cevap üreten kurumsal RAG asistanı.
+<img src="https://img.shields.io/badge/Microsoft-Staj%20Projesi-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
+
+Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yalnızca o kaynaklara dayanarak**, madde ve sayfa referansı vererek cevap üreten kurumsal RAG asistanı. Microsoft bünyesindeki staj sürecimde, bankacılık ve ödeme hizmetleri mevzuatına hızlı erişim ihtiyacından yola çıkılarak geliştirildi.
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -42,22 +44,64 @@ Cevap üretilirken kullanılan her kaynak, **belge adı + sayfa numarası + orij
 <div align="center">
 
 ```mermaid
-flowchart LR
-    A["🖥️ rag-frontend<br/>Next.js · TypeScript"] -- HTTP --> B["⚙️ rag-backend<br/>FastAPI"]
-    B -- embed & retrieve --> C[("🗂️ ChromaDB<br/>kalıcı vektör deposu")]
-    B -- prompt --> D["☁️ Azure OpenAI<br/>Kimi-K2.6"]
-    D -- cevap --> B
-    B -- JSON --> A
+flowchart TB
+    subgraph Client["🖥️ İSTEMCİ"]
+        UI["Next.js Sohbet Arayüzü<br/>TypeScript · React"]
+    end
 
-    style A fill:#10151f,stroke:#4FD1C5,color:#e7ebf3
-    style B fill:#10151f,stroke:#4FD1C5,color:#e7ebf3
-    style C fill:#10151f,stroke:#2b7a72,color:#e7ebf3
-    style D fill:#10151f,stroke:#2b7a72,color:#e7ebf3
+    subgraph API["⚙️ RAG-BACKEND · FastAPI"]
+        direction TB
+        EP1["/api/upload"]
+        EP2["/api/chat"]
+        EP3["/api/status"]
+        Splitter["RecursiveCharacterTextSplitter<br/>chunk=1000 · overlap=200"]
+        Retriever["Retriever<br/>top-k benzerlik araması"]
+    end
+
+    subgraph Store["🗂️ KALICI DEPO"]
+        Chroma[("ChromaDB<br/>multilingual-e5-base<br/>embedding")]
+    end
+
+    subgraph AI["☁️ AZURE OPENAI"]
+        LLM["Kimi-K2.6<br/>deployment"]
+    end
+
+    UI -- "PDF yükle" --> EP1
+    EP1 --> Splitter
+    Splitter -- "yeni chunk'lar" --> Chroma
+
+    UI -- "soru + geçmiş" --> EP2
+    EP2 --> Retriever
+    Retriever -- "benzerlik sorgusu" --> Chroma
+    Chroma -- "en alakalı k parça" --> Retriever
+    Retriever -- "bağlam + soru" --> LLM
+    LLM -- "cevap" --> EP2
+    EP2 -- "cevap + kaynaklar (JSON)" --> UI
+
+    UI -. "sağlık kontrolü" .-> EP3
+
+    style Client fill:#0a0e14,stroke:#232c3d,color:#e7ebf3
+    style API fill:#0a0e14,stroke:#4FD1C5,color:#e7ebf3
+    style Store fill:#0a0e14,stroke:#2b7a72,color:#e7ebf3
+    style AI fill:#0a0e14,stroke:#2b7a72,color:#e7ebf3
+    style UI fill:#10151f,stroke:#4FD1C5,color:#e7ebf3
+    style Chroma fill:#10151f,stroke:#2b7a72,color:#e7ebf3
+    style LLM fill:#10151f,stroke:#2b7a72,color:#e7ebf3
 ```
 
 </div>
 
-Yeni bir PDF yüklendiğinde **yalnızca o dosya** parçalanıp vektörleştirilir — tüm veritabanı sıfırdan kurulmaz, kalıcı Chroma deposuna eklenir.
+**Kritik tasarım kararı — artımlı (incremental) indeksleme:** Yeni bir PDF yüklendiğinde yalnızca o dosya parçalanıp vektörleştirilir ve mevcut kalıcı Chroma deposuna eklenir. Kütüphane büyüdükçe (onlarca/yüzlerce mevzuat belgesi) her yükleme işleminin maliyeti sabit kalır, tüm veritabanının yeniden kurulması gerekmez.
+
+---
+
+## 🔍 Sorgu Akışı (Retrieval Detayı)
+
+1. **Bağlam birleştirme** — Son 3 mesajlık sohbet geçmişi, mevcut soruyla birlikte arama sorgusuna eklenir (takip sorularının doğru belgeyi bulabilmesi için).
+2. **Benzerlik araması** — `multilingual-e5-base` embedding modeli ile sorgu vektöre çevrilir, Chroma'da en yakın **k** parça bulunur.
+3. **Prompt oluşturma** — Bulunan parçalar bağlam olarak, niyet-okuma ve "sınır bilinci" kurallarını içeren bir sistem talimatıyla birleştirilir.
+4. **Cevap üretimi** — Azure OpenAI (Kimi-K2.6), yalnızca sağlanan bağlama dayanarak cevap üretir; bağlamda yoksa bunu açıkça belirtir.
+5. **Kaynak eşleme** — Kullanılan her parçanın belge adı ve sayfa numarası, cevapla birlikte istemciye döner.
 
 ---
 
@@ -183,6 +227,14 @@ Rag/
 ## 🔒 Güvenlik
 
 `rag-backend/.env` ve `rag-frontend/.env.local` dosyaları `.gitignore` ile korunur, repoya asla girmez. API anahtarlarınızı hiçbir zaman doğrudan koda yazmayın.
+
+---
+
+## 🎓 Proje Hakkında
+
+Bu proje, **Microsoft** bünyesindeki staj sürecimde geliştirilmiştir.
+
+Mevzuat metinlerinde saatler süren "doğru maddeyi bulma" işini, kaynağı her zaman gösteren bir sohbete dönüştürmeyi hedefledim: hız, şeffaflıktan ödün vermeden. Sistem hiçbir zaman tahmin yürütmez — bir cevap üretebiliyorsa, o cevabın hangi belgeden ve hangi sayfadan geldiğini de gösterir. Prototip Streamlit ile başladı; üretime daha uygun bir FastAPI + Next.js mimarisine evrildi.
 
 ---
 
