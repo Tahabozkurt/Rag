@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+streamlit
+langchain
+langchain-community
+langchain-text-splitters
+langchain-openai
+langchain-huggingface
+chromadb
+sentence-transformers
+pypdf
