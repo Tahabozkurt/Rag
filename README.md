@@ -122,18 +122,18 @@ flowchart TB
 
 <div align="center">
 
-**Karşılama ekranı — önerilen sorularla hızlı başlangıç**
-<img src="docs/screenshots/karsilama-ekrani.png" width="850" alt="Karşılama ekranı" />
+**Karşılama ekranı — Hızlı dosya yükleme ile sistem entegrasyonu**
+<img src="Ekran Resmi 2026-08-10 18.05.51.png" width="850" alt="Karşılama ekranı" />
 
 <br/><br/>
 
 **Sohbet akışı — bağlamlı takip soruları, kaynak sayısı özeti**
-<img src="docs/screenshots/sohbet-akisi.png" width="850" alt="Sohbet akışı" />
+<img src="Ekran Resmi 2026-08-10 18.04.49.png" width="850" alt="Sohbet akışı" />
 
 <br/><br/>
 
 **Kaynak gösterimi (açık tema) — madde ve sayfa referansıyla cevap**
-<img src="docs/screenshots/kaynak-gosterimi-acik-tema.png" width="850" alt="Kaynak gösterimi, açık tema" />
+<img src="Ekran Resmi 2026-08-10 18.05.10.png" width="850" alt="Kaynak gösterimi, açık tema" />
 
 </div>
 
