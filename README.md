@@ -4,11 +4,11 @@
 
 # 🏛️ Mevzuat Asistanı
 
-### *Binlerce sayfa. Bir soru. Bir cevap..*
+### *Bankacılık mevzuatını okuyun demeyin, sorun.*
 
 <img src="https://img.shields.io/badge/Microsoft-Staj%20Projesi-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
 
-Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yalnızca o kaynaklara dayanarak**, madde ve sayfa referansı vererek cevap üreten kurumsal RAG asistanı. Microsoft bünyesindeki staj sürecimde, uzun mevzuat belgelerine hızlı erişim ihtiyacından yola çıkılarak geliştirildi.
+Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yalnızca o kaynaklara dayanarak**, madde ve sayfa referansı vererek cevap üreten kurumsal RAG asistanı. Microsoft bünyesindeki staj sürecimde, bankacılık ve ödeme hizmetleri mevzuatına hızlı erişim ihtiyacından yola çıkılarak geliştirildi.
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -29,7 +29,7 @@ Yüklediğiniz kanun ve yönetmelik PDF'lerini vektörleştirip, sorulara **yaln
 
 ## 🎯 Ne İşe Yarıyor?
 
-Kurumlar ve ekipler her gün onlarca sayfalık mevzuat metninde arama yapmak zorunda kalır. Mevzuat Asistanı, bu süreci bir sohbete indirger:
+Bankacılık, ödeme sistemleri ve operasyon ekipleri her gün onlarca sayfalık mevzuat metninde arama yapmak zorunda kalır. **Mevzuat Asistanı**, bu süreci bir sohbete indirger:
 
 ```
 📄 PDF yükle  →  🧠 vektörize et  →  ❓ soru sor  →  ✅ madde referanslı cevap al
@@ -115,6 +115,27 @@ flowchart TB
 | 💬 **Bağlamlı Sohbet** | Son mesajlar dikkate alınarak takip sorularına da tutarlı cevap üretilir |
 | 🌓 **Açık / Koyu Tema** | Göz yorgunluğuna göre arayüz teması anında değiştirilebilir |
 | 🚫 **Uydurmama Garantisi** | Cevap, sağlanan mevzuat metninde yoksa asistan bunu açıkça belirtir |
+
+---
+
+## 📸 Ekran Görüntüleri
+
+<div align="center">
+
+**Karşılama ekranı — önerilen sorularla hızlı başlangıç**
+<img src="docs/screenshots/karsilama-ekrani.png" width="850" alt="Karşılama ekranı" />
+
+<br/><br/>
+
+**Sohbet akışı — bağlamlı takip soruları, kaynak sayısı özeti**
+<img src="docs/screenshots/sohbet-akisi.png" width="850" alt="Sohbet akışı" />
+
+<br/><br/>
+
+**Kaynak gösterimi (açık tema) — madde ve sayfa referansıyla cevap**
+<img src="docs/screenshots/kaynak-gosterimi-acik-tema.png" width="850" alt="Kaynak gösterimi, açık tema" />
+
+</div>
 
 ---
 
@@ -232,9 +253,7 @@ Rag/
 
 ## 🎓 Proje Hakkında
 
-Bu proje, **Microsoft** bünyesindeki staj sürecimde geliştirilmiştir.
-
-Mevzuat metinlerinde saatler süren "doğru maddeyi bulma" işini, kaynağı her zaman gösteren bir sohbete dönüştürmeyi hedefledim: hız, şeffaflıktan ödün vermeden. Sistem hiçbir zaman tahmin yürütmez — bir cevap üretebiliyorsa, o cevabın hangi belgeden ve hangi sayfadan geldiğini de gösterir. Prototip Streamlit ile başladı; üretime daha uygun bir FastAPI + Next.js mimarisine evrildi.
+Bu proje, **Microsoft** bünyesindeki staj sürecimde geliştirilmiştir. Amaç, bankacılık ve ödeme hizmetleri alanındaki mevzuat metinlerine erişimi hızlandıran, kaynak şeffaflığını ödün vermeyen bir RAG sistemi kurmaktı. Prototip aşamasında Streamlit ile başlayıp, üretime daha uygun bir FastAPI + Next.js mimarisine taşındı.
 
 ---
 
